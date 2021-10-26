@@ -1,23 +1,80 @@
 // Assignment code here
 generatePassword = function() {
+  var password = "";
   
-  // ask user for passwor lenght - it must be between 8 and 128 chars.
-  var passwordLength = window.prompt("What's the Passowrd Lenght - enter a number between 8 and 128.");
-  
-  // check password length
-  while (passwordLength < 8 || passwordLength > 128) {
-    window.alert("Password Length must be between 8 and 128, try again.");
-    passwordLength = window.prompt("What's the Passowrd Lenght - enter a number between 8 and 128.");
+  // ask for user input
+  passwordCriteria.length = getPasswordLength();
+  passwordCriteria.hasNumbers = getHasNumbers();
+  passwordCriteria.hasLowercase = getHasLowercase();
+  passwordCriteria.hasUppercase = getHasUppercase();
+  passwordCriteria.hasSpecialChars = getHasSpecialChars();
+
+  var str = "";
+
+  if (passwordCriteria.hasNumbers) {
+    str = str + "0123456789";
   }
+
+  if (passwordCriteria.hasLowercase) {
+    str = str + "abcdefghijklmnopqrstuvwxyz";
+  }
+
+  if (passwordCriteria.hasUppercase) {
+    str = str + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+
+  if (passwordCriteria.hasSpecialChars) {
+    str = str + "!@#$%^&*?";
+  }
+
+  for (let index = 0; index < passwordCriteria.length; index++) {
+    var char = Math.floor(Math.random() * str.length + 1);
+
+    password = password + str.charAt(char);
+  }
+  return password;
   
 }
 
-//password character type confirm input
-// var passwordWithNumbers = window.confirm("Does the Password include Numbers?");
-// var passwordWithLowercaseLetters = window.confirm("Does the Password include Lowercase Letters?");
-// var passwordWithUppercaseLetters = window.confirm("Does the Password include Uppercase Letters?");
-// var passwordWithSpecialChars = window.confirm("Does the Password include Special Characteres?");
-// console.log("Numbers: "+ passwordWithNumbers + " Uppercase: " + passwordWithUppercaseLetters + " Lowercase " + passwordWithLowercaseLetters + " Special Chars: " + passwordWithSpecialChars);
+var getPasswordLength = function() {
+  var length = 0;
+  while (length < 8 || length > 128) {
+    length = prompt("What's the Passowrd Lenght - enter a number between 8 and 128.");
+  }
+  return length;
+};
+
+var getHasNumbers = function() {
+  var hasNumbers = false;
+  hasNumbers = confirm("Does the Password include Numbers?");
+  return hasNumbers;
+};
+
+var getHasLowercase = function() {
+  var hasLowercase = false;
+  hasLowercase = confirm("Does the Password include Lowercase Letters?");
+  return hasLowercase;
+};
+
+var getHasUppercase = function() {
+  var hasUppercase = false;
+  hasUppercase = confirm("Does the Password include Uppercase Letters?");
+  return hasUppercase;
+};
+
+var getHasSpecialChars = function() {
+  var hasSpecialChars = false;
+  hasSpecialChars = confirm("Does the Password include Special Characteres?");
+  return hasSpecialChars;
+};
+
+var passwordCriteria = {
+  length : "",
+  hasNumbers: "",
+  hasLowercase: "",
+  hasUppercase: "",
+  hasSpecialChars: ""
+};
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
