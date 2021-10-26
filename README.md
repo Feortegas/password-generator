@@ -1,5 +1,6 @@
 # Password Generator
 
+link to the application: https://feortegas.github.io/password-generator/
 ## User Story
 
 AS AN employee with access to sensitive data
